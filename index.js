@@ -572,7 +572,7 @@ app.post('/video', (req, res) => {
     const body = req.body
     var datenew = new Date().toISOString()
 pool.query("insert into video (video_link,video_title,syscreatedatutc) values ($1, $2, $3)",
-        [body.video_link,video_title,datenew], (err, result) => {
+        [body.video_link,body.video_title,datenew], (err, result) => {
             if (!err) {
                 res.status(201).send("Created")
             } else {
