@@ -52,8 +52,8 @@ app.post('/news', (req, res) => {
     var img2 = rendom + image_news.name.slice(image_news.name.lastIndexOf('.'));
 
     image_news.mv(__dirname + '/public/' + img2);
-    pool.query("insert into news (title_news, image_news, desc_news,syscreatedatutc) values ($1, $2, $3, $4)",
-        [body.title_news,img2,body.desc_news,datenew], (err, result) => {
+    pool.query("insert into news (title_news, image_news, desc_news,link,syscreatedatutc) values ($1, $2, $3, $4,$5)",
+        [body.title_news,img2,body.desc_news,body.link,datenew], (err, result) => {
             if (!err) {
                 res.status(201).send("Created")
             } else {
@@ -106,8 +106,8 @@ pool.query("SELECT * FROM news where newsid=$1", [req.params.id], (err, result) 
       })
 var datenew = new Date().toISOString()
     const body = req.body
-    pool.query(`UPDATE news SET title_news=$1,  desc_news=$3 WHERE newsid=$2`,
-        [body.title_news, req.params.id,body.desc_news], (err, result) => {
+    pool.query(`UPDATE news SET title_news=$1,  desc_news=$3,link=$4 WHERE newsid=$2`,
+        [body.title_news, req.params.id,body.desc_news,body.link], (err, result) => {
             if (!err) {
                 if (result.rowCount === 1) {
                     res.status(200).send("Updated")
@@ -252,8 +252,8 @@ app.get('/foto/:id', (req, res) => {
 app.post('/foto', (req, res) => {
     const body = req.body
     var datenew = new Date().toISOString()
-pool.query("insert into foto (foto_title,syscreatedatutc) values ($1, $2)",
-        [body.foto_title,datenew], (err, result) => {
+pool.query("insert into foto (foto_title,link,syscreatedatutc) values ($1, $2,$3)",
+        [body.foto_title,body.link,datenew], (err, result) => {
             if (!err) {
                 res.status(201).send("Created")
             } else {
@@ -280,8 +280,8 @@ app.put('/foto/:id', (req, res) => {
 
 var datenew = new Date().toISOString()
     const body = req.body
-    pool.query(`UPDATE foto SET foto_title=$1 WHERE fotoid=$2`,
-        [body.foto_title, req.params.id], (err, result) => {
+    pool.query(`UPDATE foto SET foto_title=$1,link=$3 WHERE fotoid=$2`,
+        [body.foto_title,body.link, req.params.id], (err, result) => {
             if (!err) {
                 if (result.rowCount === 1) {
                     res.status(200).send("Updated")

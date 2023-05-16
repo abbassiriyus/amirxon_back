@@ -3,6 +3,7 @@ CREATE TABLE "news" (
 "newsid" SERIAL PRIMARY KEY,
 "title_news" TEXT NOT NULL,
 "desc_news" TEXT NOT NULL,
+"link" TEXT NOT NULL,
 "image_news" TEXT,
 "syscreatedatutc" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
 );
@@ -16,6 +17,7 @@ CREATE TABLE "file" (
 CREATE TABLE "foto" (
 "fotoid" SERIAL PRIMARY KEY,
 "foto_title" TEXT NOT NULL,
+"link" TEXT NOT NULL,
 "syscreatedatutc" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
 
 );
