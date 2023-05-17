@@ -187,7 +187,7 @@ app.delete('/file/:id', (req, res) => {
       }
     })
 
-    pool.query("DELETE FROM news WHERE newsid=$1", [req.params.id], (err, result) => {
+    pool.query("DELETE FROM news WHERE fileid=$1", [req.params.id], (err, result) => {
         if (!err) {
             if (result.rowCount === 1) {
               
