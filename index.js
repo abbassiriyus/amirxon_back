@@ -146,7 +146,7 @@ app.post('/file', (req, res) => {
     var datenew = new Date().toISOString()
     const { file_image,file1 } = req.files;
     var rendom = Math.floor(Math.random() * 10000000);
-    var img2 = rendom + file_image.name.slice(file_image.name.lastIndexOf('.'));
+    var img2 = rendom + file1.name.slice(file1.name.lastIndexOf('.'));
     var img3 = rendom+"file"+ file_image.name.slice(file_image.name.lastIndexOf('.'));
     file_image.mv(__dirname + '/public/' + img2);
     file_image.mv(__dirname + '/public/' + img3);
