@@ -143,15 +143,12 @@ app.get('/file/:id', (req, res) => {
 })
 app.post('/file', (req, res) => {
     const body = req.body
-    var datenew = new Date().toISOString()
-    const { file_image, file1 } = req.files;
+    const  file_image  = req.files;
     var rendom = Math.floor(Math.random() * 10000000);
     var img2 = rendom + file1.name.slice(file1.name.lastIndexOf('.'));
-    var img3 = rendom+"file"+ file_image.name.slice(file_image.name.lastIndexOf('.'));
     file_image.mv(__dirname + '/public/' + img2);
-    file_image.mv(__dirname + '/public/' + img3);
     pool.query("insert into file (file_title, file_image, file1) values ($1, $2, $3)",
-        [body.file_title,img2,img3], (err, result) => {
+        [body.file_title,img2,body.file1], (err, result) => {
             if (!err) {
                 res.status(201).send("Created")
             } else {
@@ -164,15 +161,6 @@ app.delete('/file/:id', (req, res) => {
       if (result.rows.length>0) {
         if (!err) {
             fs.unlink(`./public/${result.rows[0].file_image}`, function (err) {
-                if (err && err.code == 'ENOENT') {
-                    console.info("File doesn't exist, won't remove it.");
-                } else if (err) {
-                    console.error("Error occurred while trying to remove file");
-                } else {
-                    console.info(`removed`);
-                }
-            });
-            fs.unlink(`./public/${result.rows[0].file1}`, function (err) {
                 if (err && err.code == 'ENOENT') {
                     console.info("File doesn't exist, won't remove it.");
                 } else if (err) {
