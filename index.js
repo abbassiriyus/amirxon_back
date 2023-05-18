@@ -143,9 +143,9 @@ app.get('/file/:id', (req, res) => {
 })
 app.post('/file', (req, res) => {
     const body = req.body
-    const  file_image  = req.files;
+    const file_image  = req.files;
     var rendom = Math.floor(Math.random() * 10000000);
-    var img2 = rendom + file1.name.slice(file1.name.lastIndexOf('.'));
+    var img2 = rendom + file_image.name.slice(file_image.name.lastIndexOf('.'));
     file_image.mv(__dirname + '/public/' + img2);
     pool.query("insert into file (file_title, file_image, file1) values ($1, $2, $3)",
         [body.file_title,img2,body.file1], (err, result) => {
