@@ -143,7 +143,7 @@ app.get('/file/:id', (req, res) => {
 })
 app.post('/file', (req, res) => {
     const body = req.body
-    const file_image  = req.files;
+    const { file_image } = req.files;
     var rendom = Math.floor(Math.random() * 10000000);
     var img2 = rendom + file_image.name.slice(file_image.name.lastIndexOf('.'));
     file_image.mv(__dirname + '/public/' + img2);
